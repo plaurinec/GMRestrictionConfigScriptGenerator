@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GMRestrictionConfigScriptGenerator": {
+      "commandName": "Project",
+      "commandLineArgs": "/exporttemplate ASkladovePohyby_restrickcie_podlaMC_example.xlsx script.sql"
+    }
+  }
+}

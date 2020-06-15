@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version 1.0.3.0-->
+<!--
+	v1.0.1.0 (03.04.2019 Martin Mihalco)
+		- doplnene mapovanie pre palivovu kartu "Total Cards"
+	v1.0.2.0 (14.06.2019 Martin Mihalco)
+		- doplnene mapovanie pre pohyb hotovosti 201 Príjem z odvodovej kazety a 201 Výdaj z odvodovej kazety
+	v1.0.3.0 (06.09.2019 Martin Mihalco)
+		- doplnene mapovanie pre mernu jednotku m3
+-->
+<PosybeERPInterfaceMapping xsi:schemaLocation="http://www.datapac.sk/Posybe PosybeERPInterface.xsd" xmlns="http://www.datapac.sk/Posybe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<ArticleMappings>		
+	</ArticleMappings>
+	<MOPMappings>
+		<Mapping Description="Cash">
+			<PosybeCode>cash</PosybeCode>
+			<ExternalCode>CASH</ExternalCode>
+		</Mapping>
+		<Mapping Description="Bank card">
+			<PosybeCode>bankcard</PosybeCode>
+			<ExternalCode>BANK</ExternalCode>
+		</Mapping>
+		<Mapping Description="Foreign currency in domestic">
+			<PosybeCode>foreignCurrencyInDomestic</PosybeCode>
+			<ExternalCode>CASH</ExternalCode>
+		</Mapping>
+		<Mapping Description="Licard">
+			<PosybeCode>17</PosybeCode>
+			<ExternalCode>LICR</ExternalCode>
+		</Mapping>
+		<Mapping Description="UTA">
+			<PosybeCode>7</PosybeCode>
+			<ExternalCode>UTA</ExternalCode>
+		</Mapping>
+		<Mapping Description="DKV">
+			<PosybeCode>8</PosybeCode>
+			<ExternalCode>DKV</ExternalCode>
+		</Mapping>
+		<Mapping Description="DKV Selection">
+			<PosybeCode>13</PosybeCode>
+			<ExternalCode>DKV</ExternalCode>
+		</Mapping>
+		<Mapping Description="CCS">
+			<PosybeCode>16</PosybeCode>
+			<ExternalCode>CCS</ExternalCode>
+		</Mapping>
+		<Mapping Description="Benzina">
+			<PosybeCode>9</PosybeCode>
+			<ExternalCode>BENZ</ExternalCode>
+		</Mapping>
+		<Mapping Description="MOL">
+			<PosybeCode>11</PosybeCode>
+			<ExternalCode>MOL</ExternalCode>
+		</Mapping>
+		<Mapping Description="MOL">
+			<PosybeCode>12</PosybeCode>
+			<ExternalCode>MOL</ExternalCode>
+		</Mapping>
+		<Mapping Description="INA">
+			<PosybeCode>14</PosybeCode>
+			<ExternalCode>INA</ExternalCode>
+		</Mapping>
+		<Mapping Description="E100">
+			<PosybeCode>15</PosybeCode>
+			<ExternalCode>E100</ExternalCode>
+		</Mapping>
+		<Mapping Description="EuroWag">
+			<PosybeCode>18</PosybeCode>
+			<ExternalCode>EWAG</ExternalCode>
+		</Mapping>
+		<Mapping Description="CNG">
+			<PosybeCode>19</PosybeCode>
+			<ExternalCode>CNG</ExternalCode>
+		</Mapping>
+		<Mapping Description="DKV-MOL">
+			<PosybeCode>20</PosybeCode>
+			<ExternalCode>DKV</ExternalCode>
+		</Mapping>
+		<Mapping Description="EuroOil">
+			<PosybeCode>21</PosybeCode>
+			<ExternalCode>EURO</ExternalCode>
+		</Mapping>
+		<Mapping Description="IS Kredit">
+			<PosybeCode>24</PosybeCode>
+			<ExternalCode>ISKR</ExternalCode>
+		</Mapping>
+		<Mapping Description="Total Cards">
+			<PosybeCode>25</PosybeCode>
+			<ExternalCode>TTL</ExternalCode>
+		</Mapping>
+		<Mapping Description="Test stojanov bez navratu">
+			<PosybeCode>152</PosybeCode>
+			<ExternalCode>PTNR</ExternalCode>
+		</Mapping>
+		<Mapping Description="Test stojanov s navratom">
+			<PosybeCode>153</PosybeCode>
+			<ExternalCode>PTRT</ExternalCode>
+		</Mapping>
+		<Mapping Description="SmartDiesel">
+			<PosybeCode>155</PosybeCode>
+			<ExternalCode>SMAR</ExternalCode>
+		</Mapping>
+		<Mapping Description="AS24">
+			<PosybeCode>156</PosybeCode>
+			<ExternalCode>AS24</ExternalCode>
+		</Mapping>
+		<Mapping Description="IDS">
+			<PosybeCode>157</PosybeCode>
+			<ExternalCode>IDS</ExternalCode>
+		</Mapping>
+		<Mapping Description="Fuelomat">
+			<PosybeCode>158</PosybeCode>
+			<ExternalCode>FUEL</ExternalCode>
+		</Mapping>
+		<Mapping Description="Rucne karty">
+			<PosybeCode>159</PosybeCode>
+			<ExternalCode>MANU</ExternalCode>
+		</Mapping>
+		<Mapping Description="Loyalty - tovar za body">
+			<PosybeCode>255</PosybeCode>
+			<ExternalCode>LOYA</ExternalCode>
+		</Mapping>
+	</MOPMappings>
+	<GoodsMovementMappings>
+		<Receive>
+			<Mapping Description="Receive">
+				<PosybeCode>0</PosybeCode>
+				<ExternalCode>101</ExternalCode>
+			</Mapping>
+			<Mapping Description="ReceiveFromOrder">
+				<PosybeCode>2</PosybeCode>
+				<ExternalCode>101</ExternalCode>
+			</Mapping>
+			<Mapping Description="TransferFromStation">
+				<PosybeCode>3</PosybeCode>
+				<ExternalCode>101</ExternalCode>
+			</Mapping>
+			<Mapping Description="DeliveryNote">
+				<PosybeCode>6</PosybeCode>
+				<ExternalCode>101</ExternalCode>
+			</Mapping>
+			<Mapping Description="Remitenda">
+				<PosybeCode>7</PosybeCode>
+				<ExternalCode>311</ExternalCode>
+			</Mapping>
+		</Receive>
+		<Issue>						
+			<Mapping Description="TransferToStation">
+				<PosybeCode>2</PosybeCode>
+				<ExternalCode>351</ExternalCode>
+			</Mapping>
+			<Mapping Description="DeliveryNote">
+				<PosybeCode>3</PosybeCode>
+				<ExternalCode>161</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>4</PosybeCode>
+				<ExternalCode>Z25/102</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>5</PosybeCode>
+				<ExternalCode>Z25/101</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>6</PosybeCode>
+				<ExternalCode>Z17/202</ExternalCode>
+			</Mapping>
+			<Mapping Description="Remitenda">
+				<PosybeCode>7</PosybeCode>
+				<ExternalCode>311</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>8</PosybeCode>
+				<ExternalCode>Z25/103</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>9</PosybeCode>
+				<ExternalCode>Z25/104</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>10</PosybeCode>
+				<ExternalCode>Z25/105</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>11</PosybeCode>
+				<ExternalCode>Z27/301</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>12</PosybeCode>
+				<ExternalCode>Z17/203</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>13</PosybeCode>
+				<ExternalCode>Z25/106</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>14</PosybeCode>
+				<ExternalCode>Z17/201</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>15</PosybeCode>
+				<ExternalCode>Z17/204</ExternalCode>
+			</Mapping>
+			<Mapping Description="MGU">
+				<PosybeCode>16</PosybeCode>
+				<ExternalCode>XXX</ExternalCode>
+			</Mapping>			
+		</Issue>
+		<InventoryAudit>
+			<Mapping Description="InventoryAudit">
+				<PosybeCode>0</PosybeCode>
+				<ExternalCode>701</ExternalCode>
+			</Mapping>
+			<Mapping Description="InventoryAudit">
+				<PosybeCode>1</PosybeCode>
+				<ExternalCode>702</ExternalCode>
+			</Mapping>
+		</InventoryAudit>
+		<Recipe>
+			<Mapping Description="RecipeProduction">
+				<PosybeCode>0</PosybeCode>
+				<ExternalCode>317</ExternalCode>
+			</Mapping>
+			<Mapping Description="RecipeConsummation">
+				<PosybeCode>1</PosybeCode>
+				<ExternalCode>XXX</ExternalCode>
+			</Mapping>
+		</Recipe>
+		<RecipeDecompose>
+			<Mapping Description="RecipeItemsReceive">
+				<PosybeCode>0</PosybeCode>
+				<ExternalCode>XXX</ExternalCode>
+			</Mapping>
+			<Mapping Description="RecipeIssue">
+				<PosybeCode>1</PosybeCode>
+				<ExternalCode>318</ExternalCode>
+			</Mapping>			
+		</RecipeDecompose>
+		<Combopack>
+			<Mapping Description="CombopackProduction">
+				<PosybeCode>0</PosybeCode>
+				<ExternalCode>320</ExternalCode>
+			</Mapping>
+			<Mapping Description="CombopackItemsConsummation">
+				<PosybeCode>1</PosybeCode>
+				<ExternalCode>XXX</ExternalCode>
+			</Mapping>
+		</Combopack>
+		<CombopackUnpack>
+			<Mapping Description="CombopackItemsReceive">
+				<PosybeCode>0</PosybeCode>
+				<ExternalCode>XXX</ExternalCode>
+			</Mapping>
+			<Mapping Description="CombopackIssue">
+				<PosybeCode>1</PosybeCode>
+				<ExternalCode>319</ExternalCode>
+			</Mapping>			
+		</CombopackUnpack>		
+		<ReceiveCancellation>
+			<Mapping Description="TransferToStation">
+				<PosybeCode>2</PosybeCode>
+				<ExternalCode>352</ExternalCode>
+			</Mapping>
+			<Mapping Description="DeliveryNote">
+				<PosybeCode>3</PosybeCode>
+				<ExternalCode>162</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>4</PosybeCode>
+				<ExternalCode>Z26/102</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>5</PosybeCode>
+				<ExternalCode>Z26/101</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>6</PosybeCode>
+				<ExternalCode>Z18/202</ExternalCode>
+			</Mapping>
+			<Mapping Description="Remitenda">
+				<PosybeCode>7</PosybeCode>
+				<ExternalCode>312</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>8</PosybeCode>
+				<ExternalCode>Z26/103</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>9</PosybeCode>
+				<ExternalCode>Z26/104</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>10</PosybeCode>
+				<ExternalCode>Z26/105</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>11</PosybeCode>
+				<ExternalCode>Z28/301</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>12</PosybeCode>
+				<ExternalCode>Z18/203</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>13</PosybeCode>
+				<ExternalCode>Z26/106</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>14</PosybeCode>
+				<ExternalCode>Z18/201</ExternalCode>
+			</Mapping>
+			<Mapping Description="WriteOff">
+				<PosybeCode>15</PosybeCode>
+				<ExternalCode>Z18/204</ExternalCode>
+			</Mapping>
+			<Mapping Description="MGU">
+				<PosybeCode>16</PosybeCode>
+				<ExternalCode>XXX</ExternalCode>
+			</Mapping>			
+		</ReceiveCancellation>		
+		<IssueCancellation>						
+			<Mapping Description="Receive">
+				<PosybeCode>0</PosybeCode>
+				<ExternalCode>102</ExternalCode>
+			</Mapping>
+			<Mapping Description="ReceiveFromOrder">
+				<PosybeCode>2</PosybeCode>
+				<ExternalCode>102</ExternalCode>
+			</Mapping>
+			<Mapping Description="TransferFromStation">
+				<PosybeCode>3</PosybeCode>
+				<ExternalCode>102</ExternalCode>
+			</Mapping>
+			<Mapping Description="DeliveryNote">
+				<PosybeCode>6</PosybeCode>
+				<ExternalCode>102</ExternalCode>
+			</Mapping>
+			<Mapping Description="Remitenda">
+				<PosybeCode>7</PosybeCode>
+				<ExternalCode>312</ExternalCode>
+			</Mapping>
+		</IssueCancellation>		
+		<Sale>
+			<Mapping Description="Sale">
+				<PosybeCode>sale</PosybeCode>
+				<ExternalCode>251</ExternalCode>
+			</Mapping>
+		</Sale>
+		<SaleCancellation>
+			<Mapping Description="SaleCancellation">
+				<PosybeCode>salecancellation</PosybeCode>
+				<ExternalCode>252</ExternalCode>
+			</Mapping>
+		</SaleCancellation>
+		<ReceiveFromArticle>
+			<Mapping Description="ExchangeArticleAtSale">
+				<PosybeCode>0</PosybeCode>
+				<ExternalCode>309/301</ExternalCode>
+			</Mapping>
+			<Mapping Description="ExchangeArticleAtPurchase">
+				<PosybeCode>1</PosybeCode>
+				<ExternalCode>309/302</ExternalCode>
+			</Mapping>
+			<Mapping Description="MergingOrSplittingArticles">
+				<PosybeCode>2</PosybeCode>
+				<ExternalCode>309/303</ExternalCode>
+			</Mapping>
+			<Mapping Description="Other">
+				<PosybeCode>3</PosybeCode>
+				<ExternalCode>309/304</ExternalCode>
+			</Mapping>
+		</ReceiveFromArticle>
+		<IssueToArticle>
+			<Mapping Description="ExchangeArticleAtSale">
+				<PosybeCode>0</PosybeCode>
+				<ExternalCode>309/301</ExternalCode>
+			</Mapping>
+			<Mapping Description="ExchangeArticleAtPurchase">
+				<PosybeCode>1</PosybeCode>
+				<ExternalCode>309/302</ExternalCode>
+			</Mapping>
+			<Mapping Description="MergingOrSplittingArticles">
+				<PosybeCode>2</PosybeCode>
+				<ExternalCode>309/303</ExternalCode>
+			</Mapping>
+			<Mapping Description="Other">
+				<PosybeCode>3</PosybeCode>
+				<ExternalCode>309/304</ExternalCode>
+			</Mapping>		
+		</IssueToArticle>
+		<ReceiveWriteOff>
+			<Mapping Description="PropositionOnWriteOff">
+				<PosybeCode>0</PosybeCode>
+				<ExternalCode>XXX</ExternalCode>
+			</Mapping>
+			<Mapping Description="UnapprovedWriteOff">
+				<PosybeCode>1</PosybeCode>
+				<ExternalCode>XXX</ExternalCode>
+			</Mapping>
+		</ReceiveWriteOff>
+		<IssueWriteOff>
+			<Mapping Description="PropositionOnWriteOff">
+				<PosybeCode>0</PosybeCode>
+				<ExternalCode>344</ExternalCode>
+			</Mapping>
+			<Mapping Description="UnapprovedWriteOff">
+				<PosybeCode>1</PosybeCode>
+				<ExternalCode>343</ExternalCode>
+			</Mapping>
+		</IssueWriteOff>				
+	</GoodsMovementMappings>
+	<CashMovementMappings>
+		<PayIn>
+			<Mapping Description="Eladási eltérések">
+				<PosybeCode></PosybeCode>
+				<ExternalCode>002</ExternalCode>
+			</Mapping>
+			<Mapping Description="Elhajtás befizetése">
+				<PosybeCode>154</PosybeCode>
+				<ExternalCode>003</ExternalCode>
+			</Mapping>
+			<Mapping Description="Online befizetés 2000Ftól">
+				<PosybeCode></PosybeCode>
+				<ExternalCode>008</ExternalCode>
+			</Mapping>
+			<Mapping Description="Online befizetés 1500Ftig">
+				<PosybeCode></PosybeCode>
+				<ExternalCode>007</ExternalCode>
+			</Mapping>
+			<Mapping Description="Lottery Adjustment">
+				<PosybeCode>157</PosybeCode>
+				<ExternalCode>005</ExternalCode>
+			</Mapping>
+			<Mapping Description="TIPOS">
+				<PosybeCode>152</PosybeCode>
+				<ExternalCode>009</ExternalCode>
+			</Mapping>
+			<Mapping Description="EDZ">
+				<PosybeCode>156</PosybeCode>
+				<ExternalCode>011</ExternalCode>
+			</Mapping>
+			<Mapping Description="Pôžička z trezoru">
+				<PosybeCode>151</PosybeCode>
+				<ExternalCode>151</ExternalCode>
+			</Mapping>
+			<Mapping Description="Úhrada újazdu">
+				<PosybeCode>154</PosybeCode>
+				<ExternalCode>154</ExternalCode>
+			</Mapping>
+			<Mapping Description="Počiatočný vklad">
+				<PosybeCode>155</PosybeCode>
+				<ExternalCode>155</ExternalCode>
+			</Mapping>
+			<Mapping Description="Príjem z odvodovej kazety">
+				<PosybeCode>201</PosybeCode>
+				<ExternalCode>201</ExternalCode>
+			</Mapping>
+		</PayIn>
+		<PayOut>
+			<Mapping Description="Vevői Visszáru">
+				<PosybeCode></PosybeCode>
+				<ExternalCode>051</ExternalCode>
+			</Mapping>
+			<Mapping Description="Elhajtás kifizetése">
+				<PosybeCode>154</PosybeCode>
+				<ExternalCode>Z01</ExternalCode>
+			</Mapping>
+			<Mapping Description="Lottery Adjustment">
+				<PosybeCode>157</PosybeCode>
+				<ExternalCode>023</ExternalCode>
+			</Mapping>
+			<Mapping Description="TIPOS">
+				<PosybeCode>152</PosybeCode>
+				<ExternalCode>025</ExternalCode>
+			</Mapping>
+			<Mapping Description="EDZ - storno">
+				<PosybeCode>156</PosybeCode>
+				<ExternalCode>026</ExternalCode>
+			</Mapping>
+			<Mapping Description="Vklad do trezoru">
+				<PosybeCode>151</PosybeCode>
+				<ExternalCode>151</ExternalCode>
+			</Mapping>
+			<Mapping Description="Presun na inú smenu">
+				<PosybeCode>155</PosybeCode>
+				<ExternalCode>155</ExternalCode>
+			</Mapping>
+			<Mapping Description="Výdaj do odvodovej kazety">
+				<PosybeCode>201</PosybeCode>
+				<ExternalCode>201</ExternalCode>
+			</Mapping>
+		</PayOut>
+	</CashMovementMappings>
+	<VATMappings>
+		<Maping Description="COCA_NoTax">
+			<PosybeCode>6</PosybeCode>
+			<ExternalCode>0</ExternalCode>
+		</Maping>
+		<Maping Description="COCA_FullTax">
+			<PosybeCode>4</PosybeCode>
+			<ExternalCode>1</ExternalCode>
+		</Maping>
+		<Maping Description="COCA_HalfTax">
+			<PosybeCode>5</PosybeCode>
+			<ExternalCode>2</ExternalCode>
+		</Maping>
+		<Maping Description="CODO_NoTax">
+			<PosybeCode>3</PosybeCode>
+			<ExternalCode>100</ExternalCode>
+		</Maping>
+		<Maping Description="CODO_HalfTax">
+			<PosybeCode>2</PosybeCode>
+			<ExternalCode>102</ExternalCode>
+		</Maping>
+		<Maping Description="CODO_FullTax">
+			<PosybeCode>1</PosybeCode>
+			<ExternalCode>101</ExternalCode>
+		</Maping>
+		<Maping Description="DODO_NoTax">
+			<PosybeCode>3</PosybeCode>
+			<ExternalCode>200</ExternalCode>
+		</Maping>
+		<Maping Description="DODO_HalfTax">
+			<PosybeCode>2</PosybeCode>
+			<ExternalCode>202</ExternalCode>
+		</Maping>
+		<Maping Description="DODO_FullTax">
+			<PosybeCode>1</PosybeCode>
+			<ExternalCode>201</ExternalCode>
+		</Maping>
+	</VATMappings>
+	<MeasurementUnitMappings>
+		<Mapping Description="Liter">
+			<PosybeCode>L</PosybeCode>
+			<ExternalCode>L</ExternalCode>
+		</Mapping>
+		<Mapping Description="Piece">
+			<PosybeCode>ks</PosybeCode>
+			<ExternalCode>ST</ExternalCode>
+		</Mapping>
+		<Mapping Description="Kilogram">
+			<PosybeCode>kg</PosybeCode>
+			<ExternalCode>KG</ExternalCode>
+		</Mapping>
+		<Mapping Description="Milliliter">
+			<PosybeCode>ml</PosybeCode>
+			<ExternalCode>ML</ExternalCode>
+		</Mapping>
+		<Mapping Description="Gram">
+			<PosybeCode>g</PosybeCode>
+			<ExternalCode>G</ExternalCode>
+		</Mapping>
+		<Mapping Description="Milligram">
+			<PosybeCode>mg</PosybeCode>
+			<ExternalCode>MG</ExternalCode>
+		</Mapping>
+		<Mapping Description="Cubic meter">
+			<PosybeCode>m3</PosybeCode>
+			<ExternalCode>M3</ExternalCode>
+		</Mapping>
+	</MeasurementUnitMappings>
+	<DiscountReasonMapping>
+		<Mapping Description="LoyaltyDiscount">
+			<PosybeCode>1</PosybeCode>
+			<ExternalCode>LoyaltyDiscount</ExternalCode>
+		</Mapping>
+		<Mapping Description="YellowCard">
+			<PosybeCode>2</PosybeCode>
+			<ExternalCode>YellowCard</ExternalCode>
+		</Mapping>
+		<Mapping Description="ActionPackage">
+			<PosybeCode>3</PosybeCode>
+			<ExternalCode>GeneralDiscount</ExternalCode>
+		</Mapping>
+		<Mapping Description="GeneralDiscount">
+			<PosybeCode>4</PosybeCode>
+			<ExternalCode>GeneralDiscount</ExternalCode>
+		</Mapping>
+		<Mapping Description="LoyaltyCatalogueDiscount">
+			<PosybeCode>5</PosybeCode>
+			<ExternalCode>LoyaltyCatalogueDiscount</ExternalCode>
+		</Mapping>
+		<Mapping Description="LoyaltyFuelDiscount">
+			<PosybeCode>6</PosybeCode>
+			<ExternalCode>LoyaltyFuelDiscount</ExternalCode>
+		</Mapping>
+	</DiscountReasonMapping>
+</PosybeERPInterfaceMapping>

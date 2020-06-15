@@ -1,0 +1,4 @@
+﻿Install EFCore.Tools
+Install EFCore.SqlServer
+Run in nuget console
+Scaffold-DbContext "Data Source=10.10.3.114;Initial Catalog=Posybe;Persist Security Info=True;User ID=sa;Password=StarForce4" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Context "PosybeContext" -t F_SKLAD_POHYBY_SPOSOBY,UPL_SUBCATEGORIES -f
