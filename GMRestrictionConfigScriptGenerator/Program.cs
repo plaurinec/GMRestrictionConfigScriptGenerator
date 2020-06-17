@@ -33,7 +33,7 @@ namespace StoreMovementsScriptor
             // setup logger
             Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(config)
-            .CreateLogger();            
+            .CreateLogger();
 
             Log.Information($"App started ..");
             Environment.ExitCode = 0;
@@ -43,25 +43,25 @@ namespace StoreMovementsScriptor
             var o = args.ToList();
             var p = o.Select(p => p.ToLower()).ToList();
 
-            generateEnabled = p[0] == "/generatesql";
-            exportTemplateEnabled = p[0] == "/exporttemplate";
+            if (o.Count > 0)
+            {
+                generateEnabled = p[0] == "/generatesql";
+                exportTemplateEnabled = p[0] == "/exporttemplate";
+            }
             //exportTemplateEnabled = j != -1;
 
-            inputFileName = o[1];
-            outputFileName = o[2];            
-            if(o.Count>3)
-            {
-                mappingFile = o[3];
-            }
-
-            if (!generateEnabled && !exportTemplateEnabled || string.IsNullOrEmpty(inputFileName))
+            if (o.Count > 1) inputFileName = o[1];
+            if (o.Count > 2) outputFileName = o[2];            
+            if(o.Count>3) mappingFile = o[3];
+            if (!generateEnabled && !exportTemplateEnabled || (generateEnabled && (string.IsNullOrEmpty(inputFileName) || string.IsNullOrEmpty(outputFileName))) || (exportTemplateEnabled && string.IsNullOrEmpty(inputFileName)))
             {
                 Log.Information($"Wrong input parameters defined. ");
                 Console.WriteLine("No arguments specified. !!");
                 Console.WriteLine();
-                Console.WriteLine("Available arguments: [/command] [excel file path] [output file path] [mapping file- default name Posybe2ERPMapping.xml]");
+                Console.WriteLine("Available arguments:");
                 Console.WriteLine("Commands:");
-                Console.WriteLine("   /generatesql    - Generate SQL script from excel");
+                Console.WriteLine("   /generatesql       - Generate SQL script from excel, input parameters [excel file path] [output file path] [mapping file- default name Posybe2ERPMapping.xml]");
+                Console.WriteLine("   /exporttemplate    - Generate Excel file from database, input parameters [excel file path to create] (ConnectionString PosybeConnection must be defined in appsettings.json)");
                 Environment.ExitCode = 1;
             }
 
@@ -208,147 +208,156 @@ namespace StoreMovementsScriptor
                 }
                 else if(exportTemplateEnabled)
                 {
-                    using (var db = new PosybeContext(optionsBuilder.Options))
+                    try
                     {
-                        var k = db.FSkladPohybySposoby.AsNoTracking().Where(p => p.Operacia == 1 && p.Typ == 0);
-                        var rows = new List<SheetRow>();
-                        var r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "External system movement", Bold = true });
-                        rows.Add(r);
-                        r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Posybe movement", Bold = true });
-                        rows.Add(r);
-                        foreach (var cc in k)
+                        using (var db = new PosybeContext(optionsBuilder.Options))
                         {
-                            r.Columns.Add(new SheetCellValue() { Value = cc.MapovaniePohyb.ToString() });
-                        }
-                        r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Posybe movement operation", Bold = true });
-                        rows.Add(r);
-                        foreach (var cc in k)
-                        {
-                            r.Columns.Add(new SheetCellValue() { Value = cc.Skratka });
-                        }
-                        r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Item limitation - COCA", Bold = true });
-                        rows.Add(r);
-                        r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Item limitation - CODO", Bold = true });
-                        rows.Add(r);
-                        r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Partner limitation - COCA", Bold = true });
-                        rows.Add(r);
-                        r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Partner limitation - CODO", Bold = true });
-                        rows.Add(r);
-                        r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Partner limitation - only SeS", Bold = true });
-                        rows.Add(r);
-                        r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Partner limitation - same SeS", Bold = true });
-                        rows.Add(r);
-                        r = new SheetRow(); r.Columns.Add(new SheetCellValue() { Value = "MC Prefix", Bold = true }); r.Columns.Add(new SheetCellValue() { Value = "Movement/MC name", Bold = true });
-                        rows.Add(r);
-                        foreach(var cc in k)
-                        {
-                            r.Columns.Add(new SheetCellValue() { Value = cc.Nazov });
-                        }
-
-                        var m = new List<string>();
-                        foreach (var cc in k)
-                        {
-                            if (!string.IsNullOrEmpty(cc.SqlFilter))
+                            var k = db.FSkladPohybySposoby.AsNoTracking().Where(p => p.Operacia == 1 && p.Typ == 0);
+                            var rows = new List<SheetRow>();
+                            var r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "External system movement", Bold = true });
+                            rows.Add(r);
+                            r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Posybe movement", Bold = true });
+                            rows.Add(r);
+                            foreach (var cc in k)
                             {
-                                if (cc.SqlFilter.Contains("UPL_SUBCATEGORIES"))
+                                r.Columns.Add(new SheetCellValue() { Value = cc.MapovaniePohyb.ToString() });
+                            }
+                            r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Posybe movement operation", Bold = true });
+                            rows.Add(r);
+                            foreach (var cc in k)
+                            {
+                                r.Columns.Add(new SheetCellValue() { Value = cc.Skratka });
+                            }
+                            r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Item limitation - COCA", Bold = true });
+                            rows.Add(r);
+                            r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Item limitation - CODO", Bold = true });
+                            rows.Add(r);
+                            r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Partner limitation - COCA", Bold = true });
+                            rows.Add(r);
+                            r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Partner limitation - CODO", Bold = true });
+                            rows.Add(r);
+                            r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Partner limitation - only SeS", Bold = true });
+                            rows.Add(r);
+                            r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Partner limitation - same SeS", Bold = true });
+                            rows.Add(r);
+                            r = new SheetRow(); r.Columns.Add(new SheetCellValue() { Value = "MC Prefix", Bold = true }); r.Columns.Add(new SheetCellValue() { Value = "Movement/MC name", Bold = true });
+                            rows.Add(r);
+                            foreach (var cc in k)
+                            {
+                                r.Columns.Add(new SheetCellValue() { Value = cc.Nazov });
+                            }
+
+                            var m = new List<string>();
+                            foreach (var cc in k)
+                            {
+                                if (!string.IsNullOrEmpty(cc.SqlFilter))
                                 {
-                                    int i = cc.SqlFilter.IndexOf("'");
-                                    int j = cc.SqlFilter.LastIndexOf("'");
-                                    if (j >= 0 && i >= 0)
+                                    if (cc.SqlFilter.Contains("UPL_SUBCATEGORIES"))
                                     {
-                                        foreach (var ca in cc.SqlFilter.Substring(i, j - i).Replace("'", "").Split(','))
+                                        int i = cc.SqlFilter.IndexOf("'");
+                                        int j = cc.SqlFilter.LastIndexOf("'");
+                                        if (j >= 0 && i >= 0)
                                         {
-                                            var ko = ca.Trim();
-                                            if (!m.Contains(ko)) m.Add(ko);
-                                        };
+                                            foreach (var ca in cc.SqlFilter.Substring(i, j - i).Replace("'", "").Split(','))
+                                            {
+                                                var ko = ca.Trim();
+                                                if (!m.Contains(ko)) m.Add(ko);
+                                            };
+                                        }
                                     }
                                 }
                             }
-                        }
-                        foreach (var sku in m)
-                        {
-                            foreach(var boi in db.UplSubcategories.AsNoTracking().Where(p => p.Notes.Contains(sku)))
+                            foreach (var sku in m)
                             {
-                                r = new SheetRow(); r.Columns.Add(new SheetCellValue() { Value = sku }); r.Columns.Add(new SheetCellValue() { Value = boi.Title.Trim() });
-                                rows.Add(r);
-                            }
-                        }
-                        //issue
-                        var sheets = new List<SheetDefinition<SheetRow>>();
-                        var c = new SheetDefinition<SheetRow>() { Name = "Issue", Fields = new List<SpreadsheetField>(), Objects = rows };
-                        sheets.Add(c);
-
-
-                        k = db.FSkladPohybySposoby.AsNoTracking().Where(p => p.Operacia == 0 && p.Typ == 0);
-                        rows = new List<SheetRow>();
-                        r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "External system movement", Bold = true });
-                        rows.Add(r);
-                        r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Posybe movement", Bold = true });
-                        rows.Add(r);
-                        foreach (var cc in k)
-                        {
-                            r.Columns.Add(new SheetCellValue() { Value = cc.MapovaniePohyb.ToString() });
-                        }
-                        r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Posybe movement operation", Bold = true });
-                        rows.Add(r);
-                        foreach (var cc in k)
-                        {
-                            r.Columns.Add(new SheetCellValue() { Value = cc.Skratka });
-                        }
-                        r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Item limitation - COCA", Bold = true });
-                        rows.Add(r);
-                        r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Item limitation - CODO", Bold = true });
-                        rows.Add(r);
-                        r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Partner limitation - COCA", Bold = true });
-                        rows.Add(r);
-                        r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Partner limitation - CODO", Bold = true });
-                        rows.Add(r);
-                        r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Partner limitation - only SeS", Bold = true });
-                        rows.Add(r);
-                        r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Partner limitation - same SeS", Bold = true });
-                        rows.Add(r);
-                        r = new SheetRow(); r.Columns.Add(new SheetCellValue() { Value = "MC Prefix", Bold = true }); r.Columns.Add(new SheetCellValue() { Value = "Movement/MC name", Bold = true });
-                        rows.Add(r);
-                        foreach (var cc in k)
-                        {
-                            r.Columns.Add(new SheetCellValue() { Value = cc.Nazov });
-                        }
-
-                        m = new List<string>();
-                        foreach (var cc in k)
-                        {
-                            if (!string.IsNullOrEmpty(cc.SqlFilter))
-                            {
-                                if (cc.SqlFilter.Contains("UPL_SUBCATEGORIES"))
+                                foreach (var boi in db.UplSubcategories.AsNoTracking().Where(p => p.Notes.Contains(sku)))
                                 {
-                                    int i = cc.SqlFilter.IndexOf("'");
-                                    int j = cc.SqlFilter.LastIndexOf("'");
-                                    if (j >= 0 && i >= 0)
+                                    r = new SheetRow(); r.Columns.Add(new SheetCellValue() { Value = sku }); r.Columns.Add(new SheetCellValue() { Value = boi.Title.Trim() });
+                                    rows.Add(r);
+                                }
+                            }
+                            //issue
+                            var sheets = new List<SheetDefinition<SheetRow>>();
+                            var c = new SheetDefinition<SheetRow>() { Name = "Issue", Fields = new List<SpreadsheetField>(), Objects = rows };
+                            sheets.Add(c);
+
+
+                            k = db.FSkladPohybySposoby.AsNoTracking().Where(p => p.Operacia == 0 && p.Typ == 0);
+                            rows = new List<SheetRow>();
+                            r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "External system movement", Bold = true });
+                            rows.Add(r);
+                            r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Posybe movement", Bold = true });
+                            rows.Add(r);
+                            foreach (var cc in k)
+                            {
+                                r.Columns.Add(new SheetCellValue() { Value = cc.MapovaniePohyb.ToString() });
+                            }
+                            r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Posybe movement operation", Bold = true });
+                            rows.Add(r);
+                            foreach (var cc in k)
+                            {
+                                r.Columns.Add(new SheetCellValue() { Value = cc.Skratka });
+                            }
+                            r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Item limitation - COCA", Bold = true });
+                            rows.Add(r);
+                            r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Item limitation - CODO", Bold = true });
+                            rows.Add(r);
+                            r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Partner limitation - COCA", Bold = true });
+                            rows.Add(r);
+                            r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Partner limitation - CODO", Bold = true });
+                            rows.Add(r);
+                            r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Partner limitation - only SeS", Bold = true });
+                            rows.Add(r);
+                            r = new SheetRow(); r.Columns.Add(new SheetCellValue()); r.Columns.Add(new SheetCellValue() { Value = "Partner limitation - same SeS", Bold = true });
+                            rows.Add(r);
+                            r = new SheetRow(); r.Columns.Add(new SheetCellValue() { Value = "MC Prefix", Bold = true }); r.Columns.Add(new SheetCellValue() { Value = "Movement/MC name", Bold = true });
+                            rows.Add(r);
+                            foreach (var cc in k)
+                            {
+                                r.Columns.Add(new SheetCellValue() { Value = cc.Nazov });
+                            }
+
+                            m = new List<string>();
+                            foreach (var cc in k)
+                            {
+                                if (!string.IsNullOrEmpty(cc.SqlFilter))
+                                {
+                                    if (cc.SqlFilter.Contains("UPL_SUBCATEGORIES"))
                                     {
-                                        foreach (var ca in cc.SqlFilter.Substring(i, j - i).Replace("'", "").Split(','))
+                                        int i = cc.SqlFilter.IndexOf("'");
+                                        int j = cc.SqlFilter.LastIndexOf("'");
+                                        if (j >= 0 && i >= 0)
                                         {
-                                            var ko = ca.Trim();
-                                            if (!m.Contains(ko)) m.Add(ko);
-                                        };
+                                            foreach (var ca in cc.SqlFilter.Substring(i, j - i).Replace("'", "").Split(','))
+                                            {
+                                                var ko = ca.Trim();
+                                                if (!m.Contains(ko)) m.Add(ko);
+                                            };
+                                        }
                                     }
                                 }
                             }
-                        }
-                        foreach (var sku in m)
-                        {
-                            foreach (var boi in db.UplSubcategories.AsNoTracking().Where(p => p.Notes.Contains(sku)))
+                            foreach (var sku in m)
                             {
-                                r = new SheetRow(); r.Columns.Add(new SheetCellValue() { Value = sku }); r.Columns.Add(new SheetCellValue() { Value = boi.Title.Trim() });
-                                rows.Add(r);
+                                foreach (var boi in db.UplSubcategories.AsNoTracking().Where(p => p.Notes.Contains(sku)))
+                                {
+                                    r = new SheetRow(); r.Columns.Add(new SheetCellValue() { Value = sku }); r.Columns.Add(new SheetCellValue() { Value = boi.Title.Trim() });
+                                    rows.Add(r);
+                                }
                             }
+
+                            c = new SheetDefinition<SheetRow>() { Name = "Receipt", Fields = new List<SpreadsheetField>(), Objects = rows };
+                            sheets.Add(c);
+
+                            // genrate excel file from table
+                            Spreadsheet.Create<SheetRow>(inputFileName, sheets.ToArray());
+                            Console.WriteLine($"Excel file {inputFileName} generated.");
+                            Log.Information($"Excel file {inputFileName} generated.");
                         }
-
-                        c = new SheetDefinition<SheetRow>() { Name = "Receipt", Fields = new List<SpreadsheetField>(), Objects = rows };
-                        sheets.Add(c);
-
-                        // genrate excel file from table
-                        Spreadsheet.Create<SheetRow>(inputFileName, sheets.ToArray());
-
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error: {ex.Message}");
+                        Log.Error(ex, $"Unexpected error while generating excel file {inputFileName}");
                     }
                 }
             }
